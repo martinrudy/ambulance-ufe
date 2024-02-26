@@ -26,7 +26,7 @@ export class MrudAmbulanceWlList {
           estimatedDurationMinutes: 20,
           condition: 'Teploty'
       }, {
-          name: 'Ing. Ferdinand Trety',
+          name: 'Ing. Ferdinand dadasdasdtest',
           patientId: '10028',
           since: new Date(Date.now() - 72 * 60).toISOString(),
           estimatedStart: new Date(Date.now() + 5 * 60).toISOString(),
