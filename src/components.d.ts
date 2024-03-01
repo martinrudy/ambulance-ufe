@@ -6,24 +6,84 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface MrudAmbulanceWlApp {
+        "basePath": string;
+    }
+    interface MrudAmbulanceWlEditor {
+        "entryId": string;
+    }
     interface MrudAmbulanceWlList {
     }
 }
+export interface MrudAmbulanceWlEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMrudAmbulanceWlEditorElement;
+}
+export interface MrudAmbulanceWlListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMrudAmbulanceWlListElement;
+}
 declare global {
+    interface HTMLMrudAmbulanceWlAppElement extends Components.MrudAmbulanceWlApp, HTMLStencilElement {
+    }
+    var HTMLMrudAmbulanceWlAppElement: {
+        prototype: HTMLMrudAmbulanceWlAppElement;
+        new (): HTMLMrudAmbulanceWlAppElement;
+    };
+    interface HTMLMrudAmbulanceWlEditorElementEventMap {
+        "editor-closed": string;
+    }
+    interface HTMLMrudAmbulanceWlEditorElement extends Components.MrudAmbulanceWlEditor, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMrudAmbulanceWlEditorElementEventMap>(type: K, listener: (this: HTMLMrudAmbulanceWlEditorElement, ev: MrudAmbulanceWlEditorCustomEvent<HTMLMrudAmbulanceWlEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMrudAmbulanceWlEditorElementEventMap>(type: K, listener: (this: HTMLMrudAmbulanceWlEditorElement, ev: MrudAmbulanceWlEditorCustomEvent<HTMLMrudAmbulanceWlEditorElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMrudAmbulanceWlEditorElement: {
+        prototype: HTMLMrudAmbulanceWlEditorElement;
+        new (): HTMLMrudAmbulanceWlEditorElement;
+    };
+    interface HTMLMrudAmbulanceWlListElementEventMap {
+        "entry-clicked": string;
+    }
     interface HTMLMrudAmbulanceWlListElement extends Components.MrudAmbulanceWlList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMrudAmbulanceWlListElementEventMap>(type: K, listener: (this: HTMLMrudAmbulanceWlListElement, ev: MrudAmbulanceWlListCustomEvent<HTMLMrudAmbulanceWlListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMrudAmbulanceWlListElementEventMap>(type: K, listener: (this: HTMLMrudAmbulanceWlListElement, ev: MrudAmbulanceWlListCustomEvent<HTMLMrudAmbulanceWlListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLMrudAmbulanceWlListElement: {
         prototype: HTMLMrudAmbulanceWlListElement;
         new (): HTMLMrudAmbulanceWlListElement;
     };
     interface HTMLElementTagNameMap {
+        "mrud-ambulance-wl-app": HTMLMrudAmbulanceWlAppElement;
+        "mrud-ambulance-wl-editor": HTMLMrudAmbulanceWlEditorElement;
         "mrud-ambulance-wl-list": HTMLMrudAmbulanceWlListElement;
     }
 }
 declare namespace LocalJSX {
+    interface MrudAmbulanceWlApp {
+        "basePath"?: string;
+    }
+    interface MrudAmbulanceWlEditor {
+        "entryId"?: string;
+        "onEditor-closed"?: (event: MrudAmbulanceWlEditorCustomEvent<string>) => void;
+    }
     interface MrudAmbulanceWlList {
+        "onEntry-clicked"?: (event: MrudAmbulanceWlListCustomEvent<string>) => void;
     }
     interface IntrinsicElements {
+        "mrud-ambulance-wl-app": MrudAmbulanceWlApp;
+        "mrud-ambulance-wl-editor": MrudAmbulanceWlEditor;
         "mrud-ambulance-wl-list": MrudAmbulanceWlList;
     }
 }
@@ -31,6 +91,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "mrud-ambulance-wl-app": LocalJSX.MrudAmbulanceWlApp & JSXBase.HTMLAttributes<HTMLMrudAmbulanceWlAppElement>;
+            "mrud-ambulance-wl-editor": LocalJSX.MrudAmbulanceWlEditor & JSXBase.HTMLAttributes<HTMLMrudAmbulanceWlEditorElement>;
             "mrud-ambulance-wl-list": LocalJSX.MrudAmbulanceWlList & JSXBase.HTMLAttributes<HTMLMrudAmbulanceWlListElement>;
         }
     }
