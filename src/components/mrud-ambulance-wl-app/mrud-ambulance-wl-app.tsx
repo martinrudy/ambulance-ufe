@@ -10,8 +10,9 @@ declare global {
 })
 export class MrudAmbulanceWlApp {
   @State() private relativePath = "";
-
-   @Prop() basePath: string="";
+  @Prop() basePath: string="";
+  @Prop() apiBase: string;
+  @Prop() ambulanceId: string;
 
   componentWillLoad() {
     const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
@@ -53,7 +54,7 @@ export class MrudAmbulanceWlApp {
         ? <mrud-ambulance-wl-editor entry-id={entryId}
             oneditor-closed={ () => navigate("./list")} >
           </mrud-ambulance-wl-editor>
-        : <mrud-ambulance-wl-list 
+        : <mrud-ambulance-wl-list  ambulance-id={this.ambulanceId} api-base={this.apiBase}
             onentry-clicked={ (ev: CustomEvent<string>)=> navigate("./entry/" + ev.detail) } >
           </mrud-ambulance-wl-list>
         }

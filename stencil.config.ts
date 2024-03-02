@@ -21,5 +21,11 @@ export const config: Config = {
   testing: {
     browserHeadless: "new",
   },
-  globalScript: 'src/global/app.ts'
+  globalScript: 'src/global/app.ts',
+  testing: {
+    transformIgnorePatterns: ["/node_modules/(?!axios)"],
+    transform: {
+      "^.+\\.(js|jsx)$": "babel-jest",
+    },
+  }
 };
