@@ -52,6 +52,7 @@ export class MrudAmbulanceWlApp {
       <Host>
         { element === "editor"
         ? <mrud-ambulance-wl-editor entry-id={entryId}
+            ambulance-id={this.ambulanceId} api-base={this.apiBase}
             oneditor-closed={ () => navigate("./list")} >
           </mrud-ambulance-wl-editor>
         : <mrud-ambulance-wl-list  ambulance-id={this.ambulanceId} api-base={this.apiBase}
