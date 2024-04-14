@@ -26,9 +26,10 @@ export class MrudAmbulanceWlEditor {
       this.entry = {
         id: "@new",
         patientId: "",
-        waitingSince: "",
+        waitingSince: new Date().toISOString(),
         estimatedDurationMinutes: 15
       };
+      this.entry.estimatedStart = (await this.assumedEntryDateAsync()).toISOString();
       return this.entry;
     }
     if (!this.entryId) {
@@ -50,6 +51,24 @@ export class MrudAmbulanceWlEditor {
        this.errorMessage = `Cannot retrieve list of waiting patients: ${err.message || "unknown"}`
     }
     return undefined;
+  }
+  private async assumedEntryDateAsync(): Promise<Date> {
+    try {
+      const response = await AmbulanceWaitingListApiFactory(undefined, this.apiBase)
+        .getWaitingListEntries(this.ambulanceId)
+      if (response.status > 299) {
+        return new Date();
+      }
+      const lastPatientOut = response.data
+        .map((_: WaitingListEntry) =>
+            Date.parse(_.estimatedStart)
+            + _.estimatedDurationMinutes * 60 * 1000
+        )
+        .reduce((acc: number, value: number) => Math.max(acc, value), 0);
+      return new Date(Math.min(Date.now(), lastPatientOut));
+    } catch (err: any) {
+      return new Date();
+    }
   }
   private async getConditions(): Promise<Condition[]> {
     try {
@@ -103,9 +122,15 @@ export class MrudAmbulanceWlEditor {
         <md-icon slot="leading-icon">fingerprint</md-icon>
         </md-filled-text-field>
 
-        <md-filled-text-field label="Čakáte od" disabled
-          value={this.entry?.waitingSince}>
-        <md-icon slot="leading-icon">watch_later</md-icon>
+        <md-filled-text-field disabled
+                       label="Čakáte od"
+                       value={new Date(this.entry?.waitingSince || Date.now()).toLocaleTimeString()}>
+                       <md-icon slot="leading-icon">watch_later</md-icon>
+        </md-filled-text-field>
+        <md-filled-text-field disabled
+                       label="Predpokladaný čas vyšetrenia"
+                       value={new Date(this.entry?.estimatedStart || Date.now()).toLocaleTimeString()}>
+                       <md-icon slot="leading-icon">login</md-icon>
         </md-filled-text-field>
 
         {this.renderConditions()}
